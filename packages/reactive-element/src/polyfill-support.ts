@@ -16,7 +16,7 @@
  * @packageDocumentation
  */
 
-export {};
+import '@webcomponents/webcomponentsjs/webcomponents-bundle.js';
 
 interface RenderOptions {
   readonly renderBefore?: ChildNode | null;

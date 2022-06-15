@@ -22,6 +22,7 @@
  * @packageDocumentation
  */
 
+import '@webcomponents/webcomponentsjs/webcomponents-bundle.js';
 import '@lit/reactive-element/polyfill-support.js';
 import 'lit-html/polyfill-support.js';
 
