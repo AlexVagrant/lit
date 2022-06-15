@@ -16,6 +16,7 @@
     "benchmarks": "cd packages/benchmarks && npm run benchmarks",
     "build": "wireit",
     "build:ts": "wireit",
+    "build:lit-starter-ts": "wireit",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint \"**/*.{js,ts}\" --fix",
     "format:prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --write",
@@ -24,6 +25,8 @@
     "nuke": "rm -rf node_modules && npm install",
     "upgrade": "rm -rf node_modules package-lock.json",
     "test": "wireit",
+    "test:lit-starter-js": "wireit",
+    "test:lit-starter-ts": "wireit",
     "prepare": "husky install",
     "changeset": "changeset",
     "version": "npm run changeset version && npm run update-version-vars",
@@ -38,7 +41,7 @@
         "./packages/lit-element:build",
         "./packages/lit-html:build",
         "./packages/lit-starter-js:build",
-        "./packages/lit-starter-ts:build",
+        "build:lit-starter-ts",
         "./packages/localize:build",
         "./packages/localize-tools:build",
         "./packages/reactive-element:build",
@@ -95,8 +98,8 @@
     },
     "test": {
       "dependencies": [
-        "./packages/lit-starter-js:test",
-        "./packages/lit-starter-ts:test",
+        "test:lit-starter-js",
+        "test:lit-starter-ts",
         "./packages/localize:test",
         "./packages/localize-tools:test",
         "./packages/tests:test",
@@ -110,6 +113,30 @@
         "./packages/labs/gen-wrapper-vue:test",
         "./packages/labs/ssr:test",
         "./packages/labs/virtualizer:test"
+      ]
+    },
+    "build:lit-starter-ts": {
+      "#comment": [
+        "The starter kits are special because they're templates for other",
+        "repos, soo we don't want it to use wireit directly. Instead, this",
+        "hack integrates it into the overall build with correct ordering."
+      ],
+      "command": "cd packages/lit-starter-ts && npm run build",
+      "dependencies": [
+        "./packages/lit:build:ts:types"
+      ]
+    },
+    "test:lit-starter-js": {
+      "command": "cd packages/lit-starter-js && npm test",
+      "dependencies": [
+        "./packages/lit:build"
+      ]
+    },
+    "test:lit-starter-ts": {
+      "command": "cd packages/lit-starter-ts && npm test",
+      "dependencies": [
+        "build:lit-starter-ts",
+        "./packages/lit:build"
       ]
     }
   },
